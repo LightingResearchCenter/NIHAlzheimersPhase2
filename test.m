@@ -31,45 +31,45 @@ nLongTerm  = sum(subjects >= 60);
 
 shortTerm1 = table;
 shortTerm1.subject = NaN(nShortTerm,1);
-
-shortTerm1.BaseActive_Coverage_Days = NaN(nShortTerm,1);
-shortTerm1.BaseActive_IS = NaN(nShortTerm,1);
-shortTerm1.BaseActive_IV = NaN(nShortTerm,1);
-
-shortTerm1.IntActive_Coverage_Days  = NaN(nShortTerm,1);
-shortTerm1.IntActive_IS  = NaN(nShortTerm,1);
-shortTerm1.IntActive_IV  = NaN(nShortTerm,1);
-
-shortTerm1.BasePlacebo_Coverage_Days = NaN(nShortTerm,1);
-shortTerm1.BasePlacebo_IS = NaN(nShortTerm,1);
-shortTerm1.BasePlacebo_IV = NaN(nShortTerm,1);
-
-shortTerm1.IntPlacebo_Coverage_Days  = NaN(nShortTerm,1);
-shortTerm1.IntPlacebo_IS  = NaN(nShortTerm,1);
-shortTerm1.IntPlacebo_IV  = NaN(nShortTerm,1);
+% 
+% shortTerm1.BaseActive_Coverage_Days = NaN(nShortTerm,1);
+% shortTerm1.BaseActive_IS = NaN(nShortTerm,1);
+% shortTerm1.BaseActive_IV = NaN(nShortTerm,1);
+% 
+% shortTerm1.IntActive_Coverage_Days  = NaN(nShortTerm,1);
+% shortTerm1.IntActive_IS  = NaN(nShortTerm,1);
+% shortTerm1.IntActive_IV  = NaN(nShortTerm,1);
+% 
+% shortTerm1.BasePlacebo_Coverage_Days = NaN(nShortTerm,1);
+% shortTerm1.BasePlacebo_IS = NaN(nShortTerm,1);
+% shortTerm1.BasePlacebo_IV = NaN(nShortTerm,1);
+% 
+% shortTerm1.IntPlacebo_Coverage_Days  = NaN(nShortTerm,1);
+% shortTerm1.IntPlacebo_IS  = NaN(nShortTerm,1);
+% shortTerm1.IntPlacebo_IV  = NaN(nShortTerm,1);
 
 longTerm1 = table;
 longTerm1.subject = NaN(nLongTerm,1);
-
-longTerm1.Baseline_Coverage_Days = NaN(nLongTerm,1);
-longTerm1.Baseline_IS = NaN(nLongTerm,1);
-longTerm1.Baseline_IV = NaN(nLongTerm,1);
-
-longTerm1.IntWeek3_Coverage_Days = NaN(nLongTerm,1);
-longTerm1.IntWeek3_IS = NaN(nLongTerm,1);
-longTerm1.IntWeek3_IV = NaN(nLongTerm,1);
-
-longTerm1.IntWeek9_Coverage_Days = NaN(nLongTerm,1);
-longTerm1.IntWeek9_IS = NaN(nLongTerm,1);
-longTerm1.IntWeek9_IV = NaN(nLongTerm,1);
-
-longTerm1.IntWeek17_Coverage_Days = NaN(nLongTerm,1);
-longTerm1.IntWeek17_IS = NaN(nLongTerm,1);
-longTerm1.IntWeek17_IV = NaN(nLongTerm,1);
-
-longTerm1.IntWeek24_Coverage_Days = NaN(nLongTerm,1);
-longTerm1.IntWeek24_IS = NaN(nLongTerm,1);
-longTerm1.IntWeek24_IV = NaN(nLongTerm,1);
+% 
+% longTerm1.Baseline_Coverage_Days = NaN(nLongTerm,1);
+% longTerm1.Baseline_IS = NaN(nLongTerm,1);
+% longTerm1.Baseline_IV = NaN(nLongTerm,1);
+% 
+% longTerm1.IntWeek3_Coverage_Days = NaN(nLongTerm,1);
+% longTerm1.IntWeek3_IS = NaN(nLongTerm,1);
+% longTerm1.IntWeek3_IV = NaN(nLongTerm,1);
+% 
+% longTerm1.IntWeek9_Coverage_Days = NaN(nLongTerm,1);
+% longTerm1.IntWeek9_IS = NaN(nLongTerm,1);
+% longTerm1.IntWeek9_IV = NaN(nLongTerm,1);
+% 
+% longTerm1.IntWeek17_Coverage_Days = NaN(nLongTerm,1);
+% longTerm1.IntWeek17_IS = NaN(nLongTerm,1);
+% longTerm1.IntWeek17_IV = NaN(nLongTerm,1);
+% 
+% longTerm1.IntWeek24_Coverage_Days = NaN(nLongTerm,1);
+% longTerm1.IntWeek24_IS = NaN(nLongTerm,1);
+% longTerm1.IntWeek24_IV = NaN(nLongTerm,1);
 
 shortTerm2 = shortTerm1;
 longTerm2  = longTerm1;
@@ -86,6 +86,7 @@ for iSub = 1:numel(subjects)
     
     for iSes = 1:numel(thisData)
         session = thisData(iSes).session;
+        protocol = thisData(iSes).protocol;
         
         data = thisData(iSes).data;
         epoch = mode(diff(data.DateTime));
@@ -106,21 +107,21 @@ for iSub = 1:numel(subjects)
         [IS2,IV2] = isiv2(data2.DateTime,data2.Activity);
         
         if subject < 60
-            shortTerm1.([session,'_Coverage_Days'])(iShortTerm) = floor(days(coverage1));
-            shortTerm1.([session,'_IS'])(iShortTerm) = IS1;
-            shortTerm1.([session,'_IV'])(iShortTerm) = IV1;
+            shortTerm1.([session,'_',protocol,'_Coverage_Days'])(iShortTerm) = floor(days(coverage1));
+            shortTerm1.([session,'_',protocol,'_IS'])(iShortTerm) = IS1;
+            shortTerm1.([session,'_',protocol,'_IV'])(iShortTerm) = IV1;
             
-            shortTerm2.([session,'_Coverage_Days'])(iShortTerm) = days(coverage2);
-            shortTerm2.([session,'_IS'])(iShortTerm) = IS2;
-            shortTerm2.([session,'_IV'])(iShortTerm) = IV2;
+            shortTerm2.([session,'_',protocol,'_Coverage_Days'])(iShortTerm) = days(coverage2);
+            shortTerm2.([session,'_',protocol,'_IS'])(iShortTerm) = IS2;
+            shortTerm2.([session,'_',protocol,'_IV'])(iShortTerm) = IV2;
         elseif subject >= 60
-            longTerm1.([session,'_Coverage_Days'])(iLongTerm) = floor(days(coverage1));
-            longTerm1.([session,'_IS'])(iLongTerm) = IS1;
-            longTerm1.([session,'_IV'])(iLongTerm) = IV1;
+            longTerm1.([session,'_',protocol,'_Coverage_Days'])(iLongTerm) = floor(days(coverage1));
+            longTerm1.([session,'_',protocol,'_IS'])(iLongTerm) = IS1;
+            longTerm1.([session,'_',protocol,'_IV'])(iLongTerm) = IV1;
             
-            longTerm2.([session,'_Coverage_Days'])(iLongTerm) = days(coverage2);
-            longTerm2.([session,'_IS'])(iLongTerm) = IS2;
-            longTerm2.([session,'_IV'])(iLongTerm) = IV2;
+            longTerm2.([session,'_',protocol,'_Coverage_Days'])(iLongTerm) = days(coverage2);
+            longTerm2.([session,'_',protocol,'_IS'])(iLongTerm) = IS2;
+            longTerm2.([session,'_',protocol,'_IV'])(iLongTerm) = IV2;
         end
         
     end

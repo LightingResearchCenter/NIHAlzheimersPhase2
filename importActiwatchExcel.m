@@ -13,6 +13,10 @@ idxActivity	= strcmp(raw(:,4),'Activity');
 
 idxDataStart = find(idxLine & idxDate & idxTime & idxActivity);
 
+if isempty(idxDataStart)
+    data = [];
+    return;
+end
 % Extract just the epoch by epoch data
 rawData = raw(idxDataStart(1):end,:);
 rawData(2,:) = [];

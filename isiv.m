@@ -11,17 +11,23 @@ function [IS,IV] = isiv(ActivityIndex,epoch)
 %
 % See also DURATION.
 
+IS = NaN;
+IV = NaN;
+
 n1 = numel(ActivityIndex);
 if (n1 < 24 || n1*hours(epoch) < 24)
-    error('Cannot compute statistic because time series is less than 24 hours');
+    warning('Cannot compute statistic because time series is less than 24 hours');
+    return;
 end
 
 if hours(epoch) > 1
-    error('Cannot compute statistic becasue time increment is larger than one hour');
+    warning('Cannot compute statistic becasue time increment is larger than one hour');
+    return;
 end
 
 if (rem(1/hours(epoch),1) > eps)
     warning('epoch does not divide into an hour without a remainder');
+    return;
 end
 
 % Make sure dataArray spans whole days, remove excess from end
