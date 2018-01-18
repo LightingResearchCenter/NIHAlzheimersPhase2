@@ -35,7 +35,7 @@ while loop1
     uiwait(msgbox('Select end of observation.','','modal'));
     [x2,~] = zoompick(ax);
     
-    idx = datenum(data.DateTime) >= x1 & datenum(data.DateTime) < x2;
+    idx = data.DateTime >= x1 & data.DateTime < x2;
     plot(ax,data.DateTime(idx),[logActivity(idx),logWhiteLight(idx)])
     title(ax,titleText,'Interpreter','none')
     legend(ax,'log(Activity)','log(White Light)')
@@ -53,7 +53,7 @@ data.Compliance = ~(isnan(data.Activity) | strcmp(data.IntervalStatus,'EXCLUDED'
 hold(ax,'on');
 x = data.DateTime(data.Observation);
 y = ~data.Compliance(data.Observation);
-h = area(datenum([x(1);x;x(end)]),[0;ax.YLim(2)*y;0]);
+h = area([x(1);x;x(end)],[0;ax.YLim(2)*y;0]);
 h.FaceColor = [0.5 0.5 0.5];
 uistack(h,'bottom');
 hold(ax,'off')
@@ -82,7 +82,7 @@ if strcmpi(button,'Yes')
             
             button = questdlg('Is this selection correct?','','Yes','No','Yes');
             if strcmpi(button,'Yes')
-                idx = datenum(data.DateTime) >= x1 & datenum(data.DateTime) < x2;
+                idx = data.DateTime >= x1 & data.DateTime < x2;
                 data.Compliance = data.Compliance & ~idx;
                 loop2 = false;
             else
@@ -111,6 +111,10 @@ ax.Parent.CurrentCharacter = 'z';
 waitfor(ax.Parent,'CurrentCharacter',char(32));
 zoom(ax,'off')
 [x,y] = ginput(1);
+
+x = ax.XLim(1) + x*diff(ax.XLim);
+y = ax.YLim(1) + y*diff(ax.YLim);
+
 zoom(ax,'out')
 clc
 end
