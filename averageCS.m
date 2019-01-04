@@ -64,10 +64,11 @@ for iObj = 1:nObj
     end
     
     lux10idx = objArray(iObj).Illuminance >= 10;
-    
-    if str2num(objArray(iObj).ID) ~= 92
-        meanCS(iObj,:) = (objArray(iObj).hourly(objArray(iObj).CircadianStimulus, 'mean', lux10idx))';
+    if(iObj == 283)
+        continue;
     end
+    meanCS(iObj,:) = (objArray(iObj).hourly(objArray(iObj).CircadianStimulus, 'mean', lux10idx))';
+    
     waitbar(iObj/nObj,h,[num2str(iObj),' of ',num2str(nObj),' objects analyzed.']);
 end
 
